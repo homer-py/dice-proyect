@@ -1,12 +1,13 @@
+import random
+from collections import Counter
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from collections import Counter
-import random
+from datetime import datetime
+import os
 
 def simulate_rolls(n=1000):
-    results = [random.randint(1,6) + random.randint(1,6) for _ in range(n)]
-    return results
+    return [random.randint(1,6) + random.randint(1,6) for _ in range(n)]
 
 def plot_results(results):
     frequencies = Counter(results)
@@ -14,10 +15,15 @@ def plot_results(results):
     plt.xlabel("Sum of the dice")
     plt.ylabel("Frequency")
     plt.title(f"Distribution of sums ({len(results)} rolls)")
-    plt.savefig("../dice_distribution.png")
+
+    os.makedirs("../plots", exist_ok=True)
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"../plots/dice_distribution_{timestamp}.png"
+    plt.savefig(filename)
     plt.close()
+    print(f"Plot saved as {filename}")
 
 if __name__ == "__main__":
     rolls = simulate_rolls()
     plot_results(rolls)
-    print("Plot saved as dice_distribution.png")
