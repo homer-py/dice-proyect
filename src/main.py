@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import os
 
+# use the radint function to simulate rolls (random number 1-6 range)
 def simulate_rolls(n=1000):
     return [random.randint(1,6) + random.randint(1,6) for _ in range(n)]
 
